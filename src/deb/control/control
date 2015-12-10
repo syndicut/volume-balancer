@@ -1,0 +1,8 @@
+Package: [[name]]
+Version: [[version]]
+Section: misc
+Priority: optional
+Architecture: all
+Depends: yandex-jdk7
+Maintainer: Rashit Azizbaev <syndicut@yandex-team.ru> 
+Description: [[description]]
