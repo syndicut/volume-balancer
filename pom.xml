@@ -106,69 +106,31 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>rpm-maven-plugin</artifactId>
-                <version>${maven.rpm.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>attached-rpm</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <copyright>${rpm.copyright}</copyright>
-                    <distribution>${rpm.distribution}</distribution>
-                    <name>${rpm.appname}</name>
-                    <group>${rpm.group}</group>
-                    <needarch>${rpm.targetArch}</needarch>
-                    <classifier>${rpm.targetos}.${rpm.targetArch}</classifier>
-                    <defineStatements>
-                        <defineStatement>_binaries_in_noarch_packages_terminate_build 0</defineStatement>
-                        <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
-                    </defineStatements>
-                    <mappings>
-                        <mapping>
-                            <directory>${rpm.path}</directory>
-                            <filemode>0755</filemode>
-                            <username>${rpm.username}</username>
-                            <groupname>${rpm.groupname}</groupname>
-                        </mapping>
-                        <mapping>
-                            <directory>${rpm.path}/bin</directory>
-                            <directoryIncluded>false</directoryIncluded>
-                            <filemode>0755</filemode>
-                            <username>${rpm.username}</username>
-                            <groupname>${rpm.groupname}</groupname>
-                            <sources>
-                                <source>
-                                    <location>${project.basedir}/target/scripts</location>
-                                </source>
-                            </sources>
-                        </mapping>
-                        <mapping>
-                            <directory>${rpm.path}/lib</directory>
-                            <recurseDirectories>true</recurseDirectories>
-                            <filemode>0755</filemode>
-                            <username>${rpm.username}</username>
-                            <groupname>${rpm.groupname}</groupname>
-                            <sources>
-                                <source>
-                                    <location>${project.build.directory}/${project.artifactId}-${project.version}.jar</location>
-                                </source>
-                            </sources>
-                        </mapping>
-                        <mapping>
-                            <directory>${rpm.path}/logs</directory>
-                            <recurseDirectories>true</recurseDirectories>
-                            <filemode>0755</filemode>
-                            <username>${rpm.username}</username>
-                            <groupname>${rpm.groupname}</groupname>
-                        </mapping>
-                    </mappings>
-                </configuration>
-            </plugin>
+      <plugin>
+        <artifactId>jdeb</artifactId>
+        <groupId>org.vafer</groupId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jdeb</goal>
+            </goals>
+            <configuration>
+              <dataSet>
+                <data>
+                  <src>${project.build.directory}/${project.build.finalName}.jar</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>${rpm.path}</prefix>
+                  </mapper>
+                </data>
+              </dataSet>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
         </plugins>
     </build>
 
