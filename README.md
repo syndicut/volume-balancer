@@ -6,6 +6,11 @@ This project aims at filling the gap with [HDFS-1312](https://issues.apache.org/
 [HDFS-1804](https://issues.apache.org/jira/browse/HDFS-1804) is a really good addition that allows the DataNode to choose the least used hard drive, but for new blocks only. Balancing existing blocks is still something missing and thus the main focus of this project.
 
 # Usage
+## Building jar
+```
+# Be sure that JAVA_HOME is set
+mvn package
+```
 
 ## Using hadoop jar
 
